@@ -36,7 +36,7 @@
 
 目标：让中文文档能独立构建、能持续维护。
 
-状态：已开始。
+状态：已完成。中文站点基础设施已经可在本地和 Read the Docs 构建。
 
 交付物：
 
@@ -56,6 +56,8 @@
 --------------------
 
 目标：先翻译理解 hftbacktest 必需的核心概念，让自己能顺畅阅读和使用。
+
+状态：已完成。
 
 优先级顺序：
 
@@ -82,6 +84,8 @@
 
 目标：补齐剩余 `.rst` 用户指南，让中文站点覆盖官方 User Guide。
 
+状态：已完成。
+
 页面清单：
 
 * ``docs/jit_compilation_overhead.rst`` -> ``docs_zh/jit_compilation_overhead.rst``
@@ -99,6 +103,8 @@
 -------------------------
 
 目标：翻译教程 notebook 的说明文字，保留代码可运行性。
+
+状态：进行中。入门批、数据与延迟批、做市核心批已完成。
 
 来源页面：
 
@@ -144,7 +150,7 @@
 
 1. 入门批：Data Preparation、Getting Started、Working with Market Depth and Trades。
 2. 数据与延迟批：Integrating Custom Data、Impact of Order Latency、Order Latency Data、Fusing Depth Data。
-3. 做市核心批：Market Making with Alpha 系列、Queue-Based Market Making、GLFT。
+3. 做市核心批：Market Making with Alpha 系列、Queue-Based Market Making、GLFT。已完成。
 4. 网格与多市场批：High-Frequency Grid Trading 系列、Making Multiple Markets 系列。
 5. 高级批：Accelerated Backtesting、Pricing Framework、Level-3 Backtesting、Risk Mitigation。
 

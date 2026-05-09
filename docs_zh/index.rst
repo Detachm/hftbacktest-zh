@@ -125,6 +125,11 @@ hftbacktest 支持 Python 3.10+。可以用 ``pip`` 安装：
    tutorials/Impact of Order Latency
    tutorials/Order Latency Data
    tutorials/Fusing Depth Data
+   tutorials/Market Making with Alpha - Order Book Imbalance
+   tutorials/Market Making with Alpha - Basis
+   tutorials/Market Making with Alpha - APT
+   tutorials/Queue-Based Market Making in Large Tick Size Assets
+   tutorials/GLFT Market Making Model and Grid Trading
    tutorials/examples
 
 .. toctree::
