@@ -267,7 +267,7 @@
    * - 教程 notebooks
      - 3
      - 进行中
-     - 入门三篇已翻译；其余 notebook 待推进。
+     - 入门批与数据/延迟批已翻译；其余 notebook 待推进。
    * - API Reference
      - 4
      - 已完成

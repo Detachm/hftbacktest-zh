@@ -121,6 +121,10 @@ hftbacktest 支持 Python 3.10+。可以用 ``pip`` 安装：
    tutorials/Data Preparation
    tutorials/Getting Started
    tutorials/Working with Market Depth and Trades
+   tutorials/Integrating Custom Data
+   tutorials/Impact of Order Latency
+   tutorials/Order Latency Data
+   tutorials/Fusing Depth Data
    tutorials/examples
 
 .. toctree::
