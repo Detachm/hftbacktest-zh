@@ -46,7 +46,7 @@ def compute_metrics(
 
 class Stats:
     """
-    **Example**
+    **示例**
 
     .. code-block:: python
 
@@ -72,22 +72,21 @@ class Stats:
 
     def summary(self, pretty: bool = False):
         """
-        Displays the statistics summary.
+        显示统计摘要。
 
         Args:
-            pretty: Returns the statistics in a pretty-printed format.
+            pretty: 以更易读的格式返回统计结果。
         """
         df = pl.DataFrame(self.splits)
         return df
 
     def plot(self, price_as_ret: bool = False, backend: Literal['matplotlib', 'holoviews'] = 'matplotlib'):
         """
-        Plots the equity curves and positions over time along with the price chart.
+        绘制权益曲线、position 时间序列以及价格图。
 
         Args:
-            price_as_ret: Plots the price chart in cumulative returns if set to `True`; otherwise, it plots the price
-                          chart in raw price terms.
-            backend: Specifies which plotting library is used to plot the charts. The default is 'matplotlib'.
+            price_as_ret: 如果设为 `True`，价格图按累计收益绘制；否则按原始价格绘制。
+            backend: 指定用于绘图的库。默认值为 'matplotlib'。
         """
         if backend == 'matplotlib':
             return self.plot_matplotlib(price_as_ret)
@@ -274,50 +273,47 @@ class Record(ABC):
 
     def contract_size(self, contract_size: float) -> 'Self':
         """
-        Sets the contract size. The default value is `1.0`.
+        设置合约乘数。默认值为 `1.0`。
 
         Args:
-            contract_size: The asset's contract size.
+            contract_size: 资产的合约乘数。
         """
         self._contract_size = contract_size
         return self
 
     def time_unit(self, time_unit: str) -> 'Self':
         """
-        Sets the time unit for converting timestamps in the records to datetime. The default value is `ns`.
+        设置把记录中的时间戳转换为 datetime 时使用的时间单位。默认值为 `ns`。
 
         Args:
-            time_unit: The unit of time of the timesteps since epoch time. This internally uses `Polars`, please see
+            time_unit: epoch time 以来时间步的时间单位。内部使用 `Polars`，详情请参考
                        `polars.from_epoch <https://docs.pola.rs/api/python/stable/reference/expressions/api/polars.from_epoch.html>`_
-                       for more details.
         """
         self._time_unit = time_unit
         return self
 
     def resample(self, frequency: str) -> 'Self':
         """
-        Sets the resampling frequency for downsampling the record. This could affect the calculation of the metrics
-        related to the sampling interval. Additionally, it reduces the time required for computing the metrics and
-        plotting the charts. The default value is `10s`.
+        设置记录降采样的重采样频率。这会影响与采样间隔相关的指标计算。
+        同时，它也会减少计算指标和绘图所需时间。默认值为 `10s`。
 
         Args:
-            frequency: Interval of the window. This internally uses `Polars`, please see
+            frequency: 窗口间隔。内部使用 `Polars`，详情请参考
                        `polars.DataFrame.group_by_dynamic <https://docs.pola.rs/api/python/stable/reference/dataframe/api/polars.DataFrame.group_by_dynamic.html>`_
-                       for more details.
         """
         self._frequency = frequency
         return self
 
     def monthly(self) -> 'Self':
         """
-        Generates monthly statistics.
+        生成月度统计。
         """
         self._partition = 'monthly'
         return self
 
     def daily(self) -> 'Self':
         """
-        Generates daily statistics.
+        生成日度统计。
         """
         self._partition = 'daily'
         return self
@@ -332,7 +328,7 @@ class Record(ABC):
             **kwargs: Any
     ) -> Stats:
         """
-        **Examples**
+        **示例**
 
         .. code-block:: python
 
@@ -340,11 +336,10 @@ class Record(ABC):
 
 
         Args:
-            metrics: The metrics specified in this list will be computed for the record. Each metric should be a class
-                     derived from the `Metric` class. If the class type, instead of an instance, is specified, an
-                     instance of the class will be constructed with the provided ``kwargs``.
+            metrics: 对该记录计算的指标列表。每个指标都应是从 `Metric` 类派生的类。
+                     如果传入的是类类型而不是实例，会使用提供的 ``kwargs`` 构造该类实例。
 
-                     The default value is a list of
+                     默认值为以下指标列表：
                      :class:`SR <metrics.SR>`,
                      :class:`Sortino <metrics.Sortino>`,
                      :class:`Ret <metrics.Ret>`,
@@ -354,10 +349,10 @@ class Record(ABC):
                      :class:`ReturnOverMDD <metrics.ReturnOverMDD>`,
                      :class:`ReturnOverTrade <metrics.rTrade>`, and
                      :class:`MaxPositionValue <metrics.MaxPositionValue>`.
-            kwargs: Keyword arguments that will be used to construct the `Metric` instance.
+            kwargs: 用于构造 `Metric` 实例的关键字参数。
 
         Returns:
-            The statistics for the specified metrics of the record.
+            该记录在指定指标上的统计结果。
         """
         if metrics is None:
             metrics = Record.DEFAULT_METRICS

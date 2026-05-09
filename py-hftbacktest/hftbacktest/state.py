@@ -16,42 +16,42 @@ class StateValues:
     @property
     def position(self) -> float64:
         """
-        Returns the open position.
+        返回当前未平仓 position。
         """
         return self.arr[0].position
 
     @property
     def balance(self) -> float64:
         """
-        Returns the cash balance.
+        返回现金余额。
         """
         return self.arr[0].balance
 
     @property
     def fee(self) -> float64:
         """
-        Returns the accumulated fee.
+        返回累计手续费。
         """
         return self.arr[0].fee
 
     @property
     def num_trades(self) -> int64:
         """
-        Returns the total number of trades.
+        返回累计成交次数。
         """
         return self.arr[0].num_trades
 
     @property
     def trading_volume(self) -> float64:
         """
-        Returns the total trading volume.
+        返回累计成交量。
         """
         return self.arr[0].trading_volume
 
     @property
     def trading_value(self) -> float64:
         """
-        Returns the total trading value.
+        返回累计成交额。
         """
         return self.arr[0].trading_value
 

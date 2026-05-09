@@ -52,24 +52,24 @@ def generate_order_latency(
         resampling_ns: int = 1_000_000_000
 ) -> np.ndarray[Any, order_latency_dtype]:
     """
-    Generates synthetic order latency data based on market feed latency.
+    基于行情 feed latency 生成合成订单延迟数据。
 
-    Order latencies are modeled as:
+    订单延迟模型如下：
         - Order entry latency    = mul_entry * feed_latency + offset_entry
         - Order response latency = mul_resp  * feed_latency + offset_resp
 
     Args:
-        feed_file: Path to the market feed file.
-        output_file: If provided, saves the generated order latency data into this file.
-        mul_entry: Multiplier applied to the feed latency to compute entry latency.
-        offset_entry: Constant offset added to the entry latency.
-        mul_resp: Multiplier applied to the feed latency to compute response latency.
-        offset_resp: Constant offset added to the response latency.
-        resampling_ns: Resampling interval in nanoseconds. The synthetic order latency data is produced by resampling
-                       the feed latency data at this interval. Default: 1_000_000_000 ns (1 s)
+        feed_file: 市场 feed 文件路径。
+        output_file: 如果提供，则把生成的订单延迟数据保存到该文件。
+        mul_entry: 用于根据 feed latency 计算 entry latency 的乘数。
+        offset_entry: 加到 entry latency 上的常数偏移。
+        mul_resp: 用于根据 feed latency 计算 response latency 的乘数。
+        offset_resp: 加到 response latency 上的常数偏移。
+        resampling_ns: 重采样间隔，单位为纳秒。合成订单延迟数据会按该间隔对 feed
+                       latency 数据重采样后生成。默认值：1_000_000_000 ns（1 s）。
 
     Returns:
-        Generated order latency data
+        生成的订单延迟数据。
     """
     data = np.load(feed_file)['data']
     df = pl.DataFrame(data)

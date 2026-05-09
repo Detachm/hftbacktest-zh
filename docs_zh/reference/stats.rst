@@ -1,6 +1,9 @@
 统计
 ====
 
+本页列出回测记录、统计摘要和常用绩效指标。指标类名保持英文，便于和代码、
+notebook 示例以及输出列名对应。
+
 .. autoclass:: hftbacktest.stats.Stats()
     :members:
     :member-order: bysource

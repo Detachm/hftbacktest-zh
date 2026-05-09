@@ -14,19 +14,17 @@ def create_last_snapshot(
         output_snapshot_filename: str | None = None
 ) -> NDArray:
     r"""
-    Creates a snapshot of the last market depth for the specified data, which can be used as the initial snapshot data
-    for subsequent data.
+    为指定数据创建最后一刻市场深度快照，可作为后续数据的初始快照。
 
     Args:
-         data: Data to be processed to obtain the last market depth snapshot.
-         tick_size: Minimum price increment for the given asset.
-         lot_size: Minimum order quantity for the given asset.
-         initial_snapshot: The initial market depth snapshot.
-         output_snapshot_filename: If provided, the snapshot data will be saved to the specified filename in ``npz``
-                                   format.
+         data: 用于生成最后市场深度快照的数据。
+         tick_size: 给定资产的最小价格变动单位。
+         lot_size: 给定资产的最小订单数量。
+         initial_snapshot: 初始市场深度快照。
+         output_snapshot_filename: 如果提供，则把快照数据以 ``npz`` 格式保存到指定文件。
 
     Returns:
-        Snapshot of the last market depth compatible with HftBacktest.
+        与 HftBacktest 兼容的最后市场深度快照。
     """
     # Just to reconstruct order book from the given snapshot to the end of the given data.
     asset = (

@@ -109,3 +109,54 @@
    * - rebate
      - 返佣
      - 交易所向满足条件的做市或流动性提供行为返还的费用。
+   * - order book imbalance
+     - 订单簿不平衡
+     - bid/ask 两侧深度或价格加权差异形成的微观结构信号。
+   * - order flow imbalance
+     - 订单流不平衡
+     - 买卖方向订单流或深度变化的不平衡。
+   * - micro-price
+     - micro-price
+     - 基于最优买卖价和数量加权得到的微观结构价格，通常保留英文。
+   * - VAMP
+     - VAMP
+     - Volume Adjusted Mid Price，通常保留缩写。
+   * - weighted-depth order book price
+     - 深度加权订单簿价格
+     - 使用订单簿多档价格和数量计算的加权价格。
+   * - book pressure
+     - book pressure
+     - 盘口压力信号，第一版保留英文以便和示例变量对应。
+   * - trade impulse
+     - trade impulse
+     - 成交冲击类信号，第一版保留英文以便和示例变量对应。
+   * - pricing / pricing model
+     - pricing / 定价模型
+     - 指估计 fair value 或预测未来价格的模型；标题中常保留 pricing。
+   * - fair price
+     - 公允价格
+     - 策略估计的合理交易价格，与 fair value 接近。
+   * - lead-lag
+     - lead-lag
+     - 市场或资产之间的领先-滞后关系，通常保留英文。
+   * - information coefficient / IC
+     - information coefficient / IC
+     - 信号与未来收益之间相关性的评估指标。
+   * - turnover
+     - turnover
+     - 成交额除以 book size 的换手指标，常保留英文。
+   * - book size
+     - book size
+     - 策略或组合的资金规模/资金分配额，API 中保留英文。
+   * - Time-In-Force
+     - Time-In-Force
+     - 订单有效期类型，API 名称中保留英文。
+   * - post only
+     - post only
+     - 只做 maker 的订单约束，通常对应 GTX。
+   * - fill or kill
+     - fill or kill
+     - 要么立即完全成交、要么取消，通常对应 FOK。
+   * - immediate or cancel
+     - immediate or cancel
+     - 立即成交可成交部分并取消剩余部分，通常对应 IOC。

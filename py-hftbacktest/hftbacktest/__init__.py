@@ -122,11 +122,10 @@ class BacktestAsset(BacktestAsset_):
 
     def data(self, data: str | List[str] | EVENT_ARRAY | List[EVENT_ARRAY]):
         """
-        Sets the feed data.
+        设置行情 feed 数据。
 
         Args:
-            data: A list of file paths for the feed data in `.npz` format, or a list of NumPy arrays containing the feed
-                  data.
+            data: `.npz` 格式行情数据文件路径列表，或包含行情 feed 数据的 NumPy 数组列表。
         """
         if isinstance(data, str):
             self.add_file(data)
@@ -146,19 +145,16 @@ class BacktestAsset(BacktestAsset_):
 
     def intp_order_latency(self, data: str | NDArray | List[str], latency_offset: int = 0):
         """
-        Uses `IntpOrderLatency <https://docs.rs/hftbacktest/latest/hftbacktest/backtest/models/struct.IntpOrderLatency.html>`_
-        for the order latency model.
-        Please see the data format.
-        The units of the historical latencies should match the timestamp units of your data.
-        Nanoseconds are typically used in HftBacktest.
+        使用 `IntpOrderLatency <https://docs.rs/hftbacktest/latest/hftbacktest/backtest/models/struct.IntpOrderLatency.html>`_
+        作为订单延迟模型。
+
+        请参考订单延迟数据格式。历史延迟数据的单位应与行情数据时间戳单位一致。
+        HftBacktest 通常使用纳秒。
 
         Args:
-            data: A list of file paths for the historical order latency data in `npz`, or a NumPy array of the
-                  historical order latency data.
-            latency_offset: the latency offset to adjust the order entry and response latency by the
-                            specified amount. This is particularly useful in cross-exchange
-                            backtesting, where the feed data is collected from a different site than
-                            the one where the strategy is intended to run.
+            data: `npz` 格式历史订单延迟数据文件路径列表，或历史订单延迟数据 NumPy 数组。
+            latency_offset: 延迟偏移量，用于按指定数值调整订单进入延迟和订单回报延迟。
+                            在跨交易所回测中尤其有用，例如行情数据采集地点与策略实际运行地点不同。
         """
         if isinstance(data, str):
             super().intp_order_latency([data], latency_offset)
@@ -172,10 +168,10 @@ class BacktestAsset(BacktestAsset_):
 
     def initial_snapshot(self, data: str | np.ndarray[Any, event_dtype]):
         """
-        Sets the initial snapshot.
+        设置初始订单簿快照。
 
         Args:
-            data: The initial snapshot file path, or a NumPy array of the initial snapshot.
+            data: 初始快照文件路径，或初始快照的 NumPy 数组。
         """
         if isinstance(data, str):
             super().initial_snapshot(data)
@@ -190,13 +186,13 @@ def HashMapMarketDepthBacktest(
         assets: List[BacktestAsset]
 ) -> HashMapMarketDepthBacktest_TypeHint:
     """
-    Constructs an instance of `HashMapMarketDepthBacktest`.
+    构造 `HashMapMarketDepthBacktest` 实例。
 
     Args:
-        assets: A list of backtesting assets constructed using :class:`BacktestAsset`.
+        assets: 使用 :class:`BacktestAsset` 构造的回测资产列表。
 
     Returns:
-        A jit`ed `HashMapMarketDepthBacktest` that can be used in an ``njit`` function.
+        已 JIT 化的 `HashMapMarketDepthBacktest`，可在 ``njit`` 函数中使用。
     """
     ptr = build_hashmap_backtest(assets)
     return HashMapMarketDepthBacktest_(ptr)
@@ -206,13 +202,13 @@ def ROIVectorMarketDepthBacktest(
         assets: List[BacktestAsset]
 ) -> ROIVectorMarketDepthBacktest_TypeHint:
     """
-    Constructs an instance of `ROIVectorMarketBacktest`.
+    构造 `ROIVectorMarketDepthBacktest` 实例。
 
     Args:
-        assets: A list of backtesting assets constructed using :class:`BacktestAsset`.
+        assets: 使用 :class:`BacktestAsset` 构造的回测资产列表。
 
     Returns:
-        A jit`ed `ROIVectorMarketBacktest` that can be used in an ``njit`` function.
+        已 JIT 化的 `ROIVectorMarketDepthBacktest`，可在 ``njit`` 函数中使用。
     """
     ptr = build_roivec_backtest(assets)
     return ROIVectorMarketDepthBacktest_(ptr)

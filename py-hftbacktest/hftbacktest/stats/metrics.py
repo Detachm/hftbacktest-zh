@@ -9,30 +9,30 @@ from .utils import get_total_days, get_num_samples_per_day
 
 class Metric(ABC):
     """
-    A base class for computing a strategy's performance metrics. Implementing a custom metric class derived from this
-    base class enables the computation of the custom metric in the :class:`Stats` and displays the summary.
+    用于计算策略绩效指标的基类。继承该基类实现自定义指标后，可以在 :class:`Stats`
+    中计算该指标，并在 summary 中展示。
     """
     @abstractmethod
     def compute(self, df: pl.DataFrame, context: Dict[str, Any]) -> Mapping[str, Any]:
         """
         Args:
-            df: Polars :class:`DataFrame <pl.DataFrame>` containing the strategy's state records.
-            context: A dictionary of calculated metrics or other values.
+            df: 包含策略状态记录的 Polars :class:`DataFrame <pl.DataFrame>`。
+            context: 已计算指标或其他值组成的字典。
 
         Returns:
-            A dictionary where the key is the name of the metric and the value is the computed metric.
+            字典，键为指标名称，值为计算得到的指标值。
         """
         raise NotImplementedError
 
 
 class Ret(Metric):
     """
-    Return
+    收益。
 
     Parameters:
-        name: Name of this metric. The default value is `Return`.
-        book_size: If the book size, or capital allocation, is set, the metric is divided by the book size to express it
-                   as a percentage ratio of the book size; otherwise, the metric is in raw units.
+        name: 指标名称。默认值为 `Return`。
+        book_size: 如果设置 book size 或资金分配额，则该指标会除以 book size，
+                   表示为 book size 的百分比；否则使用原始单位。
     """
 
     def __init__(self, name: str = None, book_size: float | None = None):
@@ -51,15 +51,14 @@ class Ret(Metric):
 
 class AnnualRet(Ret):
     """
-    Annualised return
+    年化收益。
 
     Parameters:
-        name: Name of this metric. The default value is `AnnualReturn`.
-        book_size: If the book size, or capital allocation, is set, the metric is divided by the book size to express it
-                   as a percentage ratio of the book size; otherwise, the metric is in raw units.
-        trading_days_per_year: The number of trading days per year to annualise. Commonly, 252 is used in trad-fi, so
-                               the default value is 252 to match that scale. However, you can use 365 instead of 252 for
-                               crypto markets, which run 24/7.
+        name: 指标名称。默认值为 `AnnualReturn`。
+        book_size: 如果设置 book size 或资金分配额，则该指标会除以 book size，
+                   表示为 book size 的百分比；否则使用原始单位。
+        trading_days_per_year: 用于年化的每年交易日数量。Trad-Fi 通常使用 252，
+                               因此默认值为 252。对于 24/7 运行的加密货币市场，也可以使用 365。
     """
 
     def __init__(self, name: str = None, book_size: float | None = None, trading_days_per_year: float = 252):
@@ -77,15 +76,14 @@ class AnnualRet(Ret):
 
 class SR(Metric):
     """
-    Sharpe Ratio without considering a benchmark.
+    不考虑 benchmark 的 Sharpe Ratio。
 
     Parameters:
-        name: Name of this metric. The default value is `SR`.
-        trading_days_per_year: Trading days per year to annualise. Commonly, 252 is used in trad-fi, so the default
-                               value is 252 to match that scale. However, you can use 365 instead of 252 for crypto
-                               markets, which run 24/7. Additionally, be aware that to compute the daily Sharpe Ratio,
-                               it also multiplies by `sqrt(the sample number per day)`, so the computed Sharpe Ratio is
-                               affected by the sampling interval.
+        name: 指标名称。默认值为 `SR`。
+        trading_days_per_year: 用于年化的每年交易日数量。Trad-Fi 通常使用 252，
+                               因此默认值为 252。对于 24/7 运行的加密货币市场，也可以使用 365。
+                               另外，计算日度 Sharpe Ratio 时还会乘以
+                               `sqrt(每日样本数)`，因此结果会受采样间隔影响。
     """
 
     def __init__(self, name: str = None, trading_days_per_year: float = 252):
@@ -104,15 +102,14 @@ class SR(Metric):
 
 class Sortino(Metric):
     """
-    Sortino Ratio without considering a benchmark.
+    不考虑 benchmark 的 Sortino Ratio。
 
     Parameters:
-        name: Name of this metric. The default value is `Sortino`.
-        trading_days_per_year: Trading days per year to annualise. Commonly, 252 is used in trad-fi, so the default
-                               value is 252 to match that scale. However, you can use 365 instead of 252 for crypto
-                               markets, which run 24/7. Additionally, be aware that to compute the daily Sharpe Ratio,
-                               it also multiplies by `sqrt(the sample number per day)`, so the computed Sharpe Ratio is
-                               affected by the sampling interval.
+        name: 指标名称。默认值为 `Sortino`。
+        trading_days_per_year: 用于年化的每年交易日数量。Trad-Fi 通常使用 252，
+                               因此默认值为 252。对于 24/7 运行的加密货币市场，也可以使用 365。
+                               另外，计算日度指标时还会乘以 `sqrt(每日样本数)`，
+                               因此结果会受采样间隔影响。
     """
 
     def __init__(self, name=None, trading_days_per_year: float = 252):
@@ -132,10 +129,10 @@ class Sortino(Metric):
 
 class ReturnOverMDD(Metric):
     """
-    Return over Maximum Drawdown
+    收益与最大回撤之比。
 
     Parameters:
-        name: Name of this metric. The default value is `ReturnOverMDD`.
+        name: 指标名称。默认值为 `ReturnOverMDD`。
     """
 
     def __init__(self, name: str = None):
@@ -151,11 +148,10 @@ class ReturnOverMDD(Metric):
 
 class ReturnOverTrade(Metric):
     """
-    Return over Trade value, which represents the profit made per unit of trading value, for instance,
-    `$profit / $trading_value`.
+    收益与成交额之比，表示单位成交额产生的利润，例如 `$profit / $trading_value`。
 
     Parameters:
-        name: Name of this metric. The default value is `ReturnOverTrade`.
+        name: 指标名称。默认值为 `ReturnOverTrade`。
     """
 
     def __init__(self, name: str = None):
@@ -169,12 +165,12 @@ class ReturnOverTrade(Metric):
 
 class MaxDrawdown(Metric):
     """
-    Maximum Drawdown
+    最大回撤。
 
     Parameters:
-        name: Name of this metric. The default value is `MaxDrawdown`.
-        book_size: If the book size, or capital allocation, is set, the metric is divided by the book size to express it
-                   as a percentage ratio of the book size; otherwise, the metric is in raw units.
+        name: 指标名称。默认值为 `MaxDrawdown`。
+        book_size: 如果设置 book size 或资金分配额，则该指标会除以 book size，
+                   表示为 book size 的百分比；否则使用原始单位。
     """
 
     def __init__(self, name: str = None, book_size: float | None = None):
@@ -195,10 +191,10 @@ class MaxDrawdown(Metric):
 
 class NumberOfTrades(Metric):
     """
-    Calculates the total number of trades.
+    计算总成交次数。
 
     Parameters:
-        name: Name of this metric. The default value is `NumberOfTrades`.
+        name: 指标名称。默认值为 `NumberOfTrades`。
     """
 
     def __init__(self, name: str = None):
@@ -211,10 +207,10 @@ class NumberOfTrades(Metric):
 
 class DailyNumberOfTrades(NumberOfTrades):
     """
-    Calculates the daily number of trades.
+    计算日均成交次数。
     
     Parameters:
-        name: Name of this metric. The default value is `DailyNumberOfTrades`.
+        name: 指标名称。默认值为 `DailyNumberOfTrades`。
     """
 
     def __init__(self, name: str = None):
@@ -228,10 +224,10 @@ class DailyNumberOfTrades(NumberOfTrades):
 
 class TradingVolume(Metric):
     """
-    Calculates the total trading volume, defined as the total number of shares or contracts traded.
+    计算总成交量，即成交的股票或合约数量。
 
     Parameters:
-        name: Name of this metric. The default value is `TradingVolume`.
+        name: 指标名称。默认值为 `TradingVolume`。
     """
 
     def __init__(self, name: str = None):
@@ -244,10 +240,10 @@ class TradingVolume(Metric):
 
 class DailyTradingVolume(TradingVolume):
     """
-    Calculates the daily trading volume, defined as the daily number of shares or contracts traded.
+    计算日均成交量，即每日成交的股票或合约数量。
 
     Parameters:
-        name: Name of this metric. The default value is `DailyTradingVolume`.
+        name: 指标名称。默认值为 `DailyTradingVolume`。
     """
 
     def __init__(self, name: str = None):
@@ -261,12 +257,12 @@ class DailyTradingVolume(TradingVolume):
 
 class TradingValue(Metric):
     """
-    Calculates total trading value, or total turnover defined as trading value divided by the book size.
+    计算总成交额；如果提供 book size，也可表示为成交额除以 book size 得到的 turnover。
 
     Parameters:
-        name: Name of this metric. The default value is `TradingValue` or `Turnover` if book_size is provided.
-        book_size: If the book size, or capital allocation, is set, the metric is divided by the book size to express it
-                   as a percentage ratio of the book size; otherwise, the metric is in raw units.
+        name: 指标名称。默认值为 `TradingValue`；如果提供 book_size，则默认值为 `Turnover`。
+        book_size: 如果设置 book size 或资金分配额，则该指标会除以 book size，
+                   表示为 book size 的百分比；否则使用原始单位。
     """
 
     def __init__(self, name: str = None, book_size: float | None = None):
@@ -284,12 +280,12 @@ class TradingValue(Metric):
 
 class DailyTradingValue(TradingValue):
     """
-    Calculates daily trading value, or daily turnover defined as daily trading value divided by the book size.
+    计算日均成交额；如果提供 book size，也可表示为日均成交额除以 book size 得到的日均 turnover。
 
     Parameters:
-        name: Name of this metric. The default value is `DailyTradingValue` or `DailyTurnover` if book_size is provided.
-        book_size: If the book size, or capital allocation, is set, the metric is divided by the book size to express it
-                   as a percentage ratio of the book size; otherwise, the metric is in raw units.
+        name: 指标名称。默认值为 `DailyTradingValue`；如果提供 book_size，则默认值为 `DailyTurnover`。
+        book_size: 如果设置 book size 或资金分配额，则该指标会除以 book size，
+                   表示为 book size 的百分比；否则使用原始单位。
     """
 
     def __init__(self, name: str = None, book_size: float | None = None):
@@ -306,10 +302,10 @@ class DailyTradingValue(TradingValue):
 
 class MaxPositionValue(Metric):
     """
-    Calculates the maximum open position value.
+    计算最大未平仓 position value。
 
     Parameters:
-        name: Name of this metric. The default value is `MaxPositionValue`.
+        name: 指标名称。默认值为 `MaxPositionValue`。
     """
 
     def __init__(self, name: str = None):
@@ -321,10 +317,10 @@ class MaxPositionValue(Metric):
 
 class MeanPositionValue(Metric):
     """
-    Calculates the average open position value.
+    计算平均未平仓 position value。
 
     Parameters:
-        name: Name of this metric. The default value is `MeanPositionValue`.
+        name: 指标名称。默认值为 `MeanPositionValue`。
     """
 
     def __init__(self, name: str = None):
@@ -336,10 +332,10 @@ class MeanPositionValue(Metric):
 
 class MedianPositionValue(Metric):
     """
-    Calculates the median open position value.
+    计算未平仓 position value 的中位数。
 
     Parameters:
-        name: Name of this metric. The default value is `MedianPositionValue`.
+        name: 指标名称。默认值为 `MedianPositionValue`。
     """
 
     def __init__(self, name: str = None):
@@ -351,11 +347,11 @@ class MedianPositionValue(Metric):
 
 class MaxLeverage(Metric):
     """
-    Calculates the maximum leverage, defined as the maximum open position value divided by the capital.
+    计算最大杠杆，定义为最大未平仓 position value 除以资金。
 
     Parameters:
-        name: Name of this metric. The default value is `MaxLeverage`.
-        book_size: Capital allocation.
+        name: 指标名称。默认值为 `MaxLeverage`。
+        book_size: 资金分配额。
     """
 
     def __init__(self, name: str = None, book_size: float = 0.0):

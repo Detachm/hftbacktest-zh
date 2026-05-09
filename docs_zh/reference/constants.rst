@@ -1,6 +1,9 @@
 常量
 ====
 
+本页列出行情事件、订单方向、订单类型、订单状态和 Time-In-Force 等常量。
+这些常量在代码中应保持英文名称，中文文档只解释含义。
+
 .. autodata:: hftbacktest.types.EXCH_EVENT
 
 .. autodata:: hftbacktest.types.LOCAL_EVENT

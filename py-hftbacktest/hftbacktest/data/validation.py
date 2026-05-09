@@ -15,8 +15,7 @@ from ..types import (
 @njit
 def correct_local_timestamp(data: EVENT_ARRAY, base_latency: float) -> EVENT_ARRAY:
     """
-    Adjusts the local timestamp `in place` if the feed latency is negative by offsetting it by the maximum negative
-    latency value as follows:
+    如果行情延迟为负，则按最大负延迟值原地调整本地时间戳：
 
     .. code-block::
 
@@ -24,14 +23,14 @@ def correct_local_timestamp(data: EVENT_ARRAY, base_latency: float) -> EVENT_ARR
         adjusted_local_timestamp = local_timestamp + min(feed_latency, 0) + base_latency
 
     Args:
-        data: Data to be corrected.
-        base_latency: Due to discrepancies in system time between the exchange and the local machine, latency may be
-                      measured inaccurately, resulting in negative latency values. The conversion process automatically
-                      adjusts for positive latency but may still produce zero latency cases. By adding ``base_latency``,
-                      more realistic values can be obtained. Unit should be the same as the feed data's timestamp unit.
+        data: 待修正的数据。
+        base_latency: 由于交易所和本地机器系统时间可能不一致，延迟测量可能不准确，
+                      从而出现负延迟。转换过程会自动修正正延迟，但仍可能产生零延迟。
+                      通过添加 ``base_latency`` 可以得到更现实的数值。单位应与 feed
+                      数据时间戳单位一致。
 
     Returns:
-        Data with the corrected timestamps.
+        时间戳已修正的数据。
     """
 
     latency = sys.maxsize
@@ -57,17 +56,17 @@ def correct_event_order(
         sorted_local_index: NDArray,
 ) -> EVENT_ARRAY:
     """
-    Corrects exchange timestamps that are reversed by splitting each row into separate events. These events are then
-    ordered by both exchange and local timestamps through duplication.
-    See the `data <https://hftbacktest.readthedocs.io/en/latest/data.html>`_ for details.
+    通过把每一行拆成独立事件，修正顺序反转的交易所时间戳。随后通过复制事件，
+    分别按交易所时间戳和本地时间戳排序。详情见
+    `data <https://hftbacktest.readthedocs.io/en/latest/data.html>`_。
 
     Args:
-        data: Data to be corrected.
-        sorted_exch_index: Index of data sorted by exchange timestamp.
-        sorted_local_index: Index of data sorted by local timestamp.
+        data: 待修正的数据。
+        sorted_exch_index: 按交易所时间戳排序后的数据索引。
+        sorted_local_index: 按本地时间戳排序后的数据索引。
 
     Returns:
-        Data with the corrected event order.
+        事件顺序已修正的数据。
     """
     sorted_final = np.zeros(data.shape[0] * 2, event_dtype)
 
@@ -138,11 +137,10 @@ def correct_event_order(
 
 def validate_event_order(data: EVENT_ARRAY) -> None:
     """
-    Validates that the order of events is correct. If the data contains an incorrect event order, a :class:`ValueError`
-    will be raised.
+    校验事件顺序是否正确。如果数据中存在错误事件顺序，会抛出 :class:`ValueError`。
 
     Args:
-        data: Data to validate.
+        data: 待校验的数据。
     """
     exch_ev = data['ev'] & EXCH_EVENT == EXCH_EVENT
     local_ev = data['ev'] & LOCAL_EVENT == LOCAL_EVENT

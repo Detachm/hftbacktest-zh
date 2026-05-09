@@ -38,11 +38,11 @@ class Recorder_:
 
 class Recorder:
     """
-    Record time-series state information for equity and performance metric calculation.
+    记录时间序列状态信息，用于计算权益曲线和绩效指标。
 
     Args:
-        num_assets: Total number of assets.
-        record_size: Maximum number of records to store.
+        num_assets: 资产总数。
+        record_size: 最多保存的记录数量。
     """
 
     def __init__(self, num_assets: uint64, record_size: uint64):
@@ -51,19 +51,19 @@ class Recorder:
     @property
     def recorder(self):
         """
-        Returns the recorder instance used inside Numba code.
+        返回可在 Numba 代码中使用的 recorder 实例。
 
-        You can use this instance to record state during execution, e.g.:
+        可以在执行过程中用该实例记录状态，例如：
         ``recorder.record(hbt)``
         """
         return self._recorder
 
     def to_npz(self, file: str) -> None:
         """
-        Save records to a file.
+        将记录保存到文件。
 
         Args:
-            file: Path to the output file.
+            file: 输出文件路径。
         """
         data = self._recorder.records[:self._recorder.i]
         kwargs = {str(asset_no): data[:, asset_no] for asset_no in range(data.shape[1])}
@@ -71,12 +71,12 @@ class Recorder:
 
     def get(self, asset_no: int) -> np.ndarray[Any, record_dtype]:
         """
-        Get records for a given asset number.
+        获取指定资产编号的记录。
 
         Args:
-            asset_no: Asset number.
+            asset_no: 资产编号。
 
         Returns:
-            The record associated with the given asset number.
+            与该资产编号对应的记录。
         """
         return self._recorder.records[:self._recorder.i, asset_no]
