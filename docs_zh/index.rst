@@ -118,6 +118,9 @@ hftbacktest 支持 Python 3.10+。可以用 ``pip`` 安装：
    :maxdepth: 1
    :caption: 教程
 
+   tutorials/Data Preparation
+   tutorials/Getting Started
+   tutorials/Working with Market Depth and Trades
    tutorials/examples
 
 .. toctree::

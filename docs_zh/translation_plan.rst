@@ -267,7 +267,7 @@
    * - 教程 notebooks
      - 3
      - 进行中
-     - 示例索引已翻译；notebook 正文未开始。
+     - 入门三篇已翻译；其余 notebook 待推进。
    * - API Reference
      - 4
      - 已完成
