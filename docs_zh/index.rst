@@ -2,6 +2,8 @@
 HftBacktest
 ===========
 
+|codeql| |python| |pypi| |downloads| |rustc| |crates| |license| |docs| |roadmap| |github|
+
 高频交易回测工具
 ================
 
@@ -160,3 +162,43 @@ hftbacktest 支持 Python 3.10+。可以用 ``pip`` 安装：
    glossary
    translation_plan
    deploy_readthedocs
+
+.. |python| image:: https://shields.io/badge/python-3.11+-blue
+    :alt: Python Version
+    :target: https://www.python.org/
+
+.. |codeql| image:: https://github.com/nkaz001/hftbacktest/actions/workflows/codeql.yml/badge.svg?branch=master&event=push
+    :alt: CodeQL
+    :target: https://github.com/nkaz001/hftbacktest/actions/workflows/codeql.yml
+
+.. |pypi| image:: https://badge.fury.io/py/hftbacktest.svg
+    :alt: Package Version
+    :target: https://pypi.org/project/hftbacktest
+
+.. |downloads| image:: https://static.pepy.tech/badge/hftbacktest
+    :alt: Downloads
+    :target: https://pepy.tech/project/hftbacktest
+
+.. |crates| image:: https://img.shields.io/crates/v/hftbacktest.svg
+    :alt: Rust crates.io version
+    :target: https://crates.io/crates/hftbacktest
+
+.. |license| image:: https://img.shields.io/badge/License-MIT-green.svg
+    :alt: License
+    :target: https://github.com/nkaz001/hftbacktest/blob/master/LICENSE
+
+.. |docs| image:: https://readthedocs.org/projects/hftbacktest-zh/badge/?version=latest
+    :target: https://hftbacktest-zh.readthedocs.io/zh-cn/latest/?badge=latest
+    :alt: Documentation Status
+
+.. |roadmap| image:: https://img.shields.io/badge/Roadmap-gray
+    :target: https://github.com/nkaz001/hftbacktest/blob/master/ROADMAP.md
+    :alt: Roadmap
+
+.. |github| image:: https://img.shields.io/github/stars/nkaz001/hftbacktest?style=social
+    :target: https://github.com/nkaz001/hftbacktest
+    :alt: Github
+
+.. |rustc| image:: https://shields.io/badge/rustc-1.90-blue
+    :alt: Rust Version
+    :target: https://www.rust-lang.org/
