@@ -135,6 +135,10 @@ hftbacktest 支持 Python 3.10+。可以用 ``pip`` 安装：
    tutorials/High-Frequency Grid Trading - Simplified from GLFT
    tutorials/Making Multiple Markets - Introduction
    tutorials/Making Multiple Markets
+   tutorials/Probability Queue Models
+   tutorials/Level-3 Backtesting
+   tutorials/Accelerated Backtesting
+   tutorials/Pricing Framework
    tutorials/examples
 
 .. toctree::

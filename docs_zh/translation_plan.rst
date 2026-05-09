@@ -104,7 +104,7 @@
 
 目标：翻译教程 notebook 的说明文字，保留代码可运行性。
 
-状态：进行中。入门批、数据与延迟批、做市核心批、网格与多市场批已完成。
+状态：已完成。当前仓库中的教程 notebook 已全部复制到中文目录并完成正文翻译。
 
 来源页面：
 
@@ -152,7 +152,7 @@
 2. 数据与延迟批：Integrating Custom Data、Impact of Order Latency、Order Latency Data、Fusing Depth Data。
 3. 做市核心批：Market Making with Alpha 系列、Queue-Based Market Making、GLFT。已完成。
 4. 网格与多市场批：High-Frequency Grid Trading 系列、Making Multiple Markets 系列。已完成。
-5. 高级批：Accelerated Backtesting、Pricing Framework、Level-3 Backtesting、Risk Mitigation。
+5. 高级批：Accelerated Backtesting、Pricing Framework、Level-3 Backtesting、Probability Queue Models。已完成。
 
 阶段 4：API Reference
 -------------------------
