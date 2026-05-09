@@ -130,6 +130,11 @@ hftbacktest 支持 Python 3.10+。可以用 ``pip`` 安装：
    tutorials/Market Making with Alpha - APT
    tutorials/Queue-Based Market Making in Large Tick Size Assets
    tutorials/GLFT Market Making Model and Grid Trading
+   tutorials/High-Frequency Grid Trading
+   tutorials/High-Frequency Grid Trading - Comparison Across Other Exchanges
+   tutorials/High-Frequency Grid Trading - Simplified from GLFT
+   tutorials/Making Multiple Markets - Introduction
+   tutorials/Making Multiple Markets
    tutorials/examples
 
 .. toctree::
